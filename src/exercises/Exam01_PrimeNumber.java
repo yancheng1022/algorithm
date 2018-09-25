@@ -1,8 +1,5 @@
 package exercises;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
 
 /*
 
@@ -15,6 +12,10 @@ import java.util.Scanner;
 1-N之间所有的素数，含N，为了便于观察结果，在控制台里每行输出5个数，并且这五个数之间以一个空格作为分隔。
 
 */
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
 public class Exam01_PrimeNumber {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
