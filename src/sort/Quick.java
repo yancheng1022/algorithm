@@ -16,11 +16,18 @@ public class Quick {
         }
     }
 
+    //ÅÅÐò
     public static void sort(int[]a,int left,int right){
-        if (left >= right)return;
-        int pivot = partition(a, left, right);
-        sort(a, left,pivot-1);
-        sort(a, pivot+1, right);
+        if (left < right){
+            if(right-left+1 <= 8){
+                Insertion.sort(a);
+            }else {
+                int pivot = partition(a, left, right);
+                sort(a, left,pivot-1);
+                sort(a, pivot+1, right);
+            }
+
+        }
 
     }
 
