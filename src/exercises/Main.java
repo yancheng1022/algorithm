@@ -1,39 +1,88 @@
 package exercises;
+import java.util.*;
+import java.util.concurrent.LinkedBlockingDeque;
+import java.util.concurrent.locks.ReentrantLock;
+import java.util.concurrent.locks.ReentrantReadWriteLock;
 
-import java.util.HashMap;
-import java.util.Scanner;
+
+class ListNode {
+     int val;
+    ListNode next;
+     ListNode(int x) {
+         val = x;
+        next = null;
+     }
+ }
 
 public class Main {
+
     public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        int N = sc.nextInt();
-        sc.nextLine();
-        String s = sc.nextLine();
-        String ss[] = s.split(" ");
-        int array[] = new int[ss.length];
-        for (int i=0;i<ss.length;i++){
-            array[i] = Integer.parseInt(ss[i]);
+
+        Scanner input = new Scanner(System.in);
+        List<ListNode> list = new ArrayList<ListNode>();
+        while (input.hasNext()) {
+            list.add(string2ListNode(input.next()));
         }
-        int b = sc.nextInt();
-        int[] bb = twoSum(array, b);
-        System.out.println(bb[0]+" "+bb[1]);
+
+        System.out.print(listNode2String(new Main().mergeKLists(list)));
     }
 
-    public static int[] twoSum(int[] numbers, int target) {
-        HashMap<Integer,Integer> map = new HashMap<Integer,Integer>();
-        int n = numbers.length;
-        int[] result = new int[2];
-        for(int i = 0; i < n; i++){
-            if(map.containsKey(target - numbers[i])){
-                //如果map里已经有所缺的另一个数字了 那就返回结果，如果没有，
-                //那就把本numbers[i], i 存入数组
-                result[0] = map.get(target - numbers[i]) ;//target - numbers[i]是先放进map的
-                result[1] = i ;//返回值下标从1开始
-                break;
-            }else{
-                map.put(numbers[i],i);
-            }
+    static ListNode string2ListNode(String str) {
+        StringTokenizer token = new StringTokenizer(str, ",");
+        ListNode head, foot;
+        head = foot = new ListNode(0);
+        while(token.hasMoreTokens()) {
+            int val = Integer.parseInt(token.nextToken());
+            foot = foot.next = new ListNode(val);
         }
-        return result;
+        return head.next;
+    }
+
+    static String listNode2String(ListNode listNode) {
+        StringBuilder result = new StringBuilder();
+        while (listNode != null) {
+            result.append(listNode.val).append(",");
+            listNode = listNode.next;
+        }
+        if (result.length() > 0) {
+            result.setLength(result.length() - 1);
+        }
+        return result.toString();
+    }
+
+    public ListNode mergeKLists(List<ListNode> lists) {
+        if(lists==null||lists.size()==0){
+            return null;
+        }
+        ListNode list=MergeList(lists,0,lists.size()-1);
+        return list;
+    }
+    public ListNode MergeList(List<ListNode> lists,int low,int high){
+        if(low>=high) return lists.get(low);
+        int mid=low+(high-low)/2;
+        ListNode left=MergeList(lists,low,mid);
+        ListNode right=MergeList(lists,mid+1,high);
+        return Merge(left,right);
+    }
+    public ListNode Merge(ListNode left,ListNode right){
+        ListNode h=new ListNode(-1);
+        ListNode list=h;
+        while(left!=null&&right!=null){
+            if(left.val<=right.val){
+                list.next=left;
+                left=left.next;
+            }else{
+                list.next=right;
+                right=right.next;
+            }
+            list=list.next;
+        }
+        if(left!=null){
+            list.next=left;
+        }
+        if(right!=null){
+            list.next=right;
+        }
+        return h.next;
     }
 }

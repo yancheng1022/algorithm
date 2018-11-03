@@ -1,5 +1,7 @@
 package sort;
 
+import java.util.concurrent.locks.Lock;
+
 /*
     πÈ≤¢≈≈–Ú
 
@@ -48,6 +50,7 @@ public class Merge {
     }
 
     public static void main(String[] args) {
+
         int a[] = {5,8,9,3,7,1,6,3};
         sort(a);
         for (Integer i : a) {
