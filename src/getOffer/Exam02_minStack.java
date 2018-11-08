@@ -11,7 +11,7 @@ import java.util.Stack;
  *
  * 需要借助一个辅助空间（往另一个倒的时候选出最小，再倒回去）
  */
-public class Exam01_minStack {
+public class Exam02_minStack {
     Stack<Integer> stack = new Stack<Integer>();
     Stack<Integer> stack2 = new Stack<Integer>();
     public void push(int node){
